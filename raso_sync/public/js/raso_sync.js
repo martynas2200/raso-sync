@@ -1,0 +1,1 @@
+console.log('RASO Sync app loaded');
