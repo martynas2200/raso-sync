@@ -1,18 +1,17 @@
 from setuptools import setup, find_packages
 import os
+import json
 
 with open("requirements.txt") as f:
 	install_requires = f.read().strip().split("\n")
 
-# get version from __version__ variable in raso_sync/__init__.py
+# get version from package.json
 version = "0.0.1"
-init_file = os.path.join(os.path.dirname(__file__), "raso_sync", "__init__.py")
-if os.path.exists(init_file):
-	with open(init_file) as f:
-		for line in f:
-			if line.startswith("__version__"):
-				version = line.split("=")[1].strip().strip("'\"")
-				break
+package_json = os.path.join(os.path.dirname(__file__), "package.json")
+if os.path.exists(package_json):
+	with open(package_json) as f:
+		package_data = json.load(f)
+		version = package_data.get("version", "0.0.1")
 
 setup(
 	name="raso_sync",
